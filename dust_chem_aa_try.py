@@ -1,4 +1,5 @@
 import numpy as np
+import uclchem
 # ----------------------------
 # atomic masses (amu)
 # ----------------------------
@@ -41,7 +42,9 @@ def mass_fraction_to_uclchem(
 # ----------------------------
 #Defining H_mass_fraction values 
 #----------------------------
-H_mass_fraction = 0.7381 #from TNG100-1, z=
+H_low = 0.56
+H_mid = 0.72
+H_high = 0.76
 # ----------------------------
 # Initial parameter grids
 # ----------------------------
@@ -53,62 +56,66 @@ gas_temperature_grid = np.array([2.5, 6.0, 9.0])  # log10(T_gas / K)
 fneutral_grid = np.array([0.0, 0.06, 1.0])  # f_neutral
 
 carbon_grid = np.array([
-    mass_fraction_to_uclchem(10**(-10), H_mass_fraction, ATOMIC_MASS["C"]),
-    mass_fraction_to_uclchem(10**(-7), H_mass_fraction, ATOMIC_MASS["C"]),
-    mass_fraction_to_uclchem(10**(-2), H_mass_fraction, ATOMIC_MASS["C"])
+    mass_fraction_to_uclchem(10**(-10), H_high, ATOMIC_MASS["C"]),
+    mass_fraction_to_uclchem(10**(-7), H_mid, ATOMIC_MASS["C"]),
+    mass_fraction_to_uclchem(10**(-2), H_low, ATOMIC_MASS["C"])
 ])
 
-hydrogen_grid = np.array([
-    mass_fraction_to_uclchem(0.60, H_mass_fraction, ATOMIC_MASS["H"]),
-    mass_fraction_to_uclchem(0.7381, H_mass_fraction, ATOMIC_MASS["H"]),
-    mass_fraction_to_uclchem(0.75, H_mass_fraction, ATOMIC_MASS["H"])
-])
-#I used the same value of the H_mass_fraction for the H_mid range since its the same meaning
+hydrogen_grid = np.array([1, 1, 1])
+#n_H/n_H should = 1 so
 helium_grid = np.array([
-    mass_fraction_to_uclchem(0.24, H_mass_fraction, ATOMIC_MASS["He"]),
-    mass_fraction_to_uclchem(0.26, H_mass_fraction, ATOMIC_MASS["He"]),
-    mass_fraction_to_uclchem(0.30, H_mass_fraction, ATOMIC_MASS["He"])
+    mass_fraction_to_uclchem(0.24, H_high, ATOMIC_MASS["He"]),
+    mass_fraction_to_uclchem(0.26, H_mid, ATOMIC_MASS["He"]),
+    mass_fraction_to_uclchem(0.30, H_low, ATOMIC_MASS["He"])
 ])
 
 nitrogen_grid = np.array([
-    mass_fraction_to_uclchem(10**(-10), H_mass_fraction, ATOMIC_MASS["N"]),
-    mass_fraction_to_uclchem(10**(-5), H_mass_fraction, ATOMIC_MASS["N"]),
-    mass_fraction_to_uclchem(10**(-2), H_mass_fraction, ATOMIC_MASS["N"])
+    mass_fraction_to_uclchem(10**(-10), H_high, ATOMIC_MASS["N"]),
+    mass_fraction_to_uclchem(10**(-5), H_mid, ATOMIC_MASS["N"]),
+    mass_fraction_to_uclchem(10**(-2), H_low, ATOMIC_MASS["N"])
 ])
 
 oxygen_grid = np.array([
-    mass_fraction_to_uclchem(10**(-9), H_mass_fraction, ATOMIC_MASS["O"]),
-    mass_fraction_to_uclchem(10**(-5), H_mass_fraction, ATOMIC_MASS["O"]),
-    mass_fraction_to_uclchem(10**(-1.5), H_mass_fraction, ATOMIC_MASS["O"])
+    mass_fraction_to_uclchem(10**(-9), H_high, ATOMIC_MASS["O"]),
+    mass_fraction_to_uclchem(10**(-5), H_mid, ATOMIC_MASS["O"]),
+    mass_fraction_to_uclchem(10**(-1.5), H_low, ATOMIC_MASS["O"])
 ])
 
 neon_grid = np.array([
-    mass_fraction_to_uclchem(10**(-10), H_mass_fraction, ATOMIC_MASS["Ne"]),
-    mass_fraction_to_uclchem(10**(-5), H_mass_fraction, ATOMIC_MASS["Ne"]),
-    mass_fraction_to_uclchem(10**(-2), H_mass_fraction, ATOMIC_MASS["Ne"])
+    mass_fraction_to_uclchem(10**(-10), H_high, ATOMIC_MASS["Ne"]),
+    mass_fraction_to_uclchem(10**(-5), H_mid, ATOMIC_MASS["Ne"]),
+    mass_fraction_to_uclchem(10**(-2), H_low, ATOMIC_MASS["Ne"])
 ])
 
 magnesium_grid = np.array([
-    mass_fraction_to_uclchem(10**(-10), H_mass_fraction, ATOMIC_MASS["Mg"]),
-    mass_fraction_to_uclchem(10**(-5), H_mass_fraction, ATOMIC_MASS["Mg"]),
-    mass_fraction_to_uclchem(10**(-2), H_mass_fraction, ATOMIC_MASS["Mg"])
+    mass_fraction_to_uclchem(10**(-10), H_high, ATOMIC_MASS["Mg"]),
+    mass_fraction_to_uclchem(10**(-5), H_mid, ATOMIC_MASS["Mg"]),
+    mass_fraction_to_uclchem(10**(-2), H_low, ATOMIC_MASS["Mg"])
 ])
 
 silicon_grid = np.array([
-    mass_fraction_to_uclchem(10**(-10), H_mass_fraction, ATOMIC_MASS["Si"]),
-    mass_fraction_to_uclchem(10**(-5), H_mass_fraction, ATOMIC_MASS["Si"]),
-    mass_fraction_to_uclchem(10**(-2), H_mass_fraction, ATOMIC_MASS["Si"])
+    mass_fraction_to_uclchem(10**(-10), H_high, ATOMIC_MASS["Si"]),
+    mass_fraction_to_uclchem(10**(-5), H_mid, ATOMIC_MASS["Si"]),
+    mass_fraction_to_uclchem(10**(-2), H_low, ATOMIC_MASS["Si"])
 ])
 
 iron_grid = np.array([
-    mass_fraction_to_uclchem(10**(-10), H_mass_fraction, ATOMIC_MASS["Fe"]),
-    mass_fraction_to_uclchem(10**(-5), H_mass_fraction, ATOMIC_MASS["Fe"]),
-    mass_fraction_to_uclchem(10**(-2), H_mass_fraction, ATOMIC_MASS["Fe"])
+    mass_fraction_to_uclchem(10**(-10), H_high, ATOMIC_MASS["Fe"]),
+    mass_fraction_to_uclchem(10**(-5), H_mid, ATOMIC_MASS["Fe"]),
+    mass_fraction_to_uclchem(10**(-2), H_low, ATOMIC_MASS["Fe"])
 ])
 #values for low, mid, and high are approximations and NOT accurate to the TNG histograms.
 #carbon_grid = np.array([
-   # mass_fraction_to_uclchem(C_low, H_mass_fraction, 12.011),
-    #mass_fraction_to_uclchem(C_mid, H_mass_fraction, 12.011),
-   #mass_fraction_to_uclchem(C_high, H_mass_fraction, 12.011)
+   # mass_fraction_to_uclchem(C_low, H_high, 12.011),
+    #mass_fraction_to_uclchem(C_mid, H_mid, 12.011),
+   #mass_fraction_to_uclchem(C_high, H_low, 12.011)
 #])
 #missing other_grid, z_grid, metallicity_grid, and other elements. I will need to define those as well.
+
+mg_test = mass_fraction_to_uclchem(
+    10**(-5),
+    H_mid,
+    ATOMIC_MASS["Mg"]
+)
+
+print("Converted Mg abundance:", mg_test)
