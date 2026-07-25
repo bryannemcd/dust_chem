@@ -849,17 +849,6 @@ def postprocess(
         usecoldens=coldens_H_array is not None,
         **postprocess_arrays,
     )
-    print("\nRAW PHYSICS ARRAY SHAPE:", physicsArray.shape)
-
-    for i in range(physicsArray.shape[0]):
-        row = np.asarray(physicsArray[i, 0, :])
-
-        print(f"Raw row {i}: {row!r}")
-        print("  nonzero entries:", np.count_nonzero(row))
-        print("  finite:", np.all(np.isfinite(row)))
-
-    print("\nSUCCESS FLAG:", success_flag)
-
     if not return_rates or not (return_array or return_dataframe):
         ratesArray = None
     if return_array or return_dataframe:
