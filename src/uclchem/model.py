@@ -4,7 +4,6 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from uclchemwrap import uclchemwrap as wrap
-
 from uclchem.constants import (
     N_PHYSICAL_PARAMETERS,
     PHYSICAL_PARAMETERS,
@@ -834,6 +833,9 @@ def postprocess(
     ratesArray = _create_ratesarray(
         param_dict["points"], n_reactions, timepoints=len(time_array)
     )
+    print("EXACT FORTRAN DICTIONARY:")
+    print(param_dict)
+
     _, _, _, abunds, specname, success_flag = wrap.postprocess(
         dictionary=param_dict,
         outspeciesin=out_species,

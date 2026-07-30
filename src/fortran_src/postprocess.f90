@@ -87,9 +87,9 @@ CONTAINS
         av(dstep) = 5.348e-22 * coldens(dstep)
       end if 
       ! Set final time to end of tracer histories
-      finaltime = timegrid(timepoints)/seconds_per_year
+      finalTime = (seconds_per_year + timegrid(timepoints))/seconds_per_year
     END SUBROUTINE
-
+    
     !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     !Called every time loop in main.f90. Sets the timestep for the next output from   !
     !UCLCHEM. This is also given to the integrator as the targetTime in chemistry.f90 !

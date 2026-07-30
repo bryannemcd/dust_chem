@@ -45,16 +45,20 @@ radfield_array = np.array([
     2.4,
 ])
 
-# This must come after time_array is defined.
+from abundances import abundance_dict
+
+MID = 1
+
 param_dict = {
-    "fmg": mg_abundance,
-    "finaltime": 3000.0001,
-    "finalDens": 5000.0,
+    parameter_name: float(abundance_values[MID])
+    for parameter_name, abundance_values in abundance_dict.items()
 }
 
+param_dict["finaldens"] = 5000.0
+
 print("PARAMETERS SENT TO UCLCHEM")
-for key, value in param_dict.items():
-    print(f"{key}: {value}")
+for name, value in param_dict.items():
+    print(f"{name}: {value}")
 
 result = uclchem.model.postprocess(
     param_dict=param_dict,
@@ -66,6 +70,11 @@ result = uclchem.model.postprocess(
     dust_temperature_array=dust_temperature_array,
     zeta_array=zeta_array,
     radfield_array=radfield_array,
+    # Optional column-density histories, left as none since i dont have physical column-density data
+    coldens_H_array=None,
+    coldens_H2_array=None,
+    coldens_CO_array=None,
+    coldens_C_array=None,
 )
 
 physical_arrays = {
@@ -135,7 +144,13 @@ print(
 
 print("Number of returned objects:", len(result))
 
-for index, item in enumerate(result):
-    print(index, type(item))
 
-    print("test")
+#test 
+MID = 1
+
+param_dict = {
+    parameter: float(values[MID])
+    for parameter, values in abundance_dict.items()
+}
+
+param_dict["finaldens"] = 5000.0

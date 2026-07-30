@@ -651,7 +651,15 @@ CONTAINS
         ELSE
             CALL output(returnArray, returnRates, successflag)
         END IF
-        
+
+        ! Print the control variables before entering the loop
+        write(*,*) 'DEBUG CONTROL VALUES'
+        write(*,*) 'finalTime = ', finalTime
+        write(*,*) 'finalDens = ', finalDens
+        write(*,*) 'endAtFinalDensity = ', endAtFinalDensity
+        write(*,*) 'timeInYears = ', timeInYears
+        write(*,*) 'density(1) = ', density(1)
+        write(*,*) 'timePoints = ', timePoints
 
         !loop until the end condition of the model is reached
         DO WHILE ((successFlag .eq. 0) .and. (((endAtFinalDensity) .and. &
@@ -662,6 +670,9 @@ CONTAINS
             !Each physics module has a subroutine to set the target time from the current time
             timeInYears=currentTime/SECONDS_PER_YEAR
             CALL updateTargetTime
+            write(*,*) 'dtime = ', dtime
+            write(*,*) 'targetTime years = ', targetTime/SECONDS_PER_YEAR
+            write(*,*) 'currentTime years = ', currentTime/SECONDS_PER_YEAR
             !loop over parcels, counting from centre out to edge of cloud
             DO dstep=1,points
                 !reset time if this isn't first depth point
@@ -768,7 +779,10 @@ CONTAINS
                 CASE('currenttime')
                     READ(inputValue,*,iostat=successFlag) currentTime
                 CASE('finaltime')
+                write(*,*) 'FINALTIME RAW INPUT = ', trim(inputValue)
                     READ(inputValue,*,iostat=successFlag) finalTime
+                write(*,*) 'FINALTIME AFTER READ = ', finalTime
+                write(*,*) 'FINALTIME READ STATUS = ', successFlag
                 CASE('radfield')
                     READ(inputValue,*,iostat=successFlag) radfield
                 CASE('zeta')
