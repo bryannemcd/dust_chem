@@ -116,3 +116,39 @@ param_dict = {
 print("\nPARAMETERS TO SEND TO UCLCHEM")
 for key, value in param_dict.items():
     print(f"{key}: {value}")
+
+    # Physical conditions for sample_001
+time_array = np.array([1.0])
+density_array = np.array([n_H])
+gas_temperature_array = np.array([
+    float(particle["temperature_K"])
+])
+
+dust_temperature_array = np.array([10.0])
+zeta_array = np.array([1.0])
+radfield_array = np.array([1.0])
+
+print("\nRUNNING PARTICLE THROUGH UCLCHEM...")
+
+result = uclchem.model.postprocess(
+    param_dict=param_dict,
+    return_dataframe=True,
+    return_rates=False,
+    time_array=time_array,
+    density_array=density_array,
+    gas_temperature_array=gas_temperature_array,
+    dust_temperature_array=dust_temperature_array,
+    zeta_array=zeta_array,
+    radfield_array=radfield_array,
+)
+
+physics_df, chemistry_df, rates_df, abundance_start, success_flag = result
+
+print("\nSUCCESS FLAG")
+print(success_flag)
+
+print("\nPHYSICS OUTPUT")
+print(physics_df)
+
+print("\nCHEMISTRY OUTPUT SHAPE")
+print(chemistry_df.shape)
