@@ -118,7 +118,12 @@ for key, value in param_dict.items():
     print(f"{key}: {value}")
 
     # Physical conditions for sample_001
-time_array = np.array([1.0])
+SECONDS_PER_YEAR = 3.15576e7
+
+time_array = np.array([
+    1.0e6 * SECONDS_PER_YEAR
+])
+
 density_array = np.array([n_H])
 gas_temperature_array = np.array([
     float(particle["temperature_K"])
@@ -152,3 +157,5 @@ print(physics_df)
 
 print("\nCHEMISTRY OUTPUT SHAPE")
 print(chemistry_df.shape)
+
+print("Target test time [years]:", time_array[0] / SECONDS_PER_YEAR)
